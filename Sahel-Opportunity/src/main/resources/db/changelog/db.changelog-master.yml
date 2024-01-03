@@ -1,0 +1,184 @@
+databaseChangeLog:
+- changeSet:
+    id: 1
+    author: otoure
+    changes:
+    - createTable:
+        tableName: Utilisateurs
+        columns:
+        - column:
+            name: id
+            type: int
+            constraints:
+              primaryKey: true
+              nullable: false
+        - column:
+            name: nom
+            type: varchar(100)
+        - column:
+            name: email
+            type: varchar(100)
+        - column:
+            name: mot_de_passe
+            type: varchar(100)
+        - column:
+            name: experience_professionnelle
+            type: text
+        - column:
+            name: education
+            type: text
+        - column:
+            name: competences
+            type: text
+        - column:
+            name: preferences
+            type: text
+        - column:
+            name: historique_recherche
+            type: text
+- changeSet:
+    id: 2
+    author: otoure
+    changes:
+    - createTable:
+        tableName: Offres_Emploi
+        columns:
+        - column:
+            name: id
+            type: int
+            constraints:
+              primaryKey: true
+              nullable: false
+        - column:
+            name: titre
+            type: varchar(100)
+        - column:
+            name: description
+            type: text
+        - column:
+            name: exigences
+            type: text
+        - column:
+            name: employeur
+            type: varchar(100)
+        - column:
+            name: lieu
+            type: varchar(100)
+        - column:
+            name: type_contrat
+            type: varchar(50)
+- changeSet:
+    id: 3
+    author: otoure
+    changes:
+    - createTable:
+        tableName: Opportunites_Financement
+        columns:
+        - column:
+            name: id
+            type: int
+            constraints:
+              primaryKey: true
+              nullable: false
+        - column:
+            name: nom
+            type: varchar(100)
+        - column:
+            name: type
+            type: varchar(50)
+        - column:
+            name: montant
+            type: decimal(10,2)
+        - column:
+            name: criteres_eligibilite
+            type: text
+        - column:
+            name: bailleurs_fonds
+            type: text
+- changeSet:
+    id: 4
+    author: otoure
+    changes:
+    - createTable:
+        tableName: Historique_Interactions
+        columns:
+        - column:
+            name: id
+            type: int
+            constraints:
+              primaryKey: true
+              nullable: false
+        - column:
+            name: utilisateur_id
+            type: int
+        - column:
+            name: historique_recherche
+            type: text
+        - column:
+            name: offres_consultees
+            type: text
+        - column:
+            name: actions
+            type: text
+    - addForeignKeyConstraint:
+        baseColumnNames: utilisateur_id
+        baseTableName: Historique_Interactions
+        constraintName: fk_utilisateur
+        referencedColumnNames: id
+        referencedTableName: Utilisateurs
+- changeSet:
+    id: 5
+    author: otoure
+    changes:
+    - createTable:
+        tableName: Alertes_Notifications
+        columns:
+        - column:
+            name: id
+            type: int
+            constraints:
+              primaryKey: true
+              nullable: false
+        - column:
+            name: utilisateur_id
+            type: int
+        - column:
+            name: type_alerte
+            type: varchar(50)
+        - column:
+            name: statut
+            type: varchar(50)
+        - column:
+            name: preferences_notification
+            type: text
+    - addForeignKeyConstraint:
+        baseColumnNames: utilisateur_id
+        baseTableName: Alertes_Notifications
+        constraintName: fk_utilisateur
+        referencedColumnNames: id
+        referencedTableName: Utilisateurs
+- changeSet:
+    id: 6
+    author: otoure
+    changes:
+    - createTable:
+        tableName: Evenements
+        columns:
+        - column:
+            name: id
+            type: int
+            constraints:
+              primaryKey: true
+              nullable: false
+        - column:
+            name: nom
+            type: varchar(100)
+        - column:
+            name: date
+            type: date
+        - column:
+            name: lieu
+            type: varchar(100)
+        - column:
+            name: description
+            type: text
